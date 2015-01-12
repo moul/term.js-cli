@@ -10,6 +10,9 @@
     "type": "git",
     "url": "https://github.com/moul/term.js-cli"
   },
+  "dependencies": {
+    "socket.io": "0.9.13"
+  },
   "keywords": [
     "term.js",
     "tty.js",
