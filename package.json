@@ -11,7 +11,7 @@
     "url": "https://github.com/moul/term.js-cli"
   },
   "dependencies": {
-    "socket.io": "0.9.13"
+    "socket.io-client": "0.9.11"
   },
   "keywords": [
     "term.js",
