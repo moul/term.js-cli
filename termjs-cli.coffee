@@ -1,23 +1,25 @@
 #!/usr/bin/env coffee
 
 socketio = require 'socket.io-client'
+readline = require 'readline'
 
 socket = socketio.connect('localdocker.xxx:8080')
+pty = null
+
+rl = readline.createInterface
+  input: process.stdin
+  output: process.stdout
+
+rl.on 'line', (line) ->
+  socket.emit 'data', pty, "#{line}\n"
+
+rl.on 'SIGINT', ->
+  rl.pause()
+  socket.disconnect()
 
 socket.on 'connect', ->
-  console.log "socket.on(connect)"
-  pty = null
-
   socket.on 'data', (pty, data) ->
-    console.log "socket.on(data) -> #{pty} #{data}"
-
-  socket.on 'disconnect', ->
-    console.log "socket.on(disconnect)"
+    process.stdout.write data
 
   socket.emit 'create', 80, 25, (err, data) ->
-    console.log 'create callback', err, data
     pty = data.id
-
-  setTimeout (->
-    socket.emit('data', pty, 'ls -la\n')
-  ), 1000
