@@ -1,7 +1,7 @@
 term.js-cli
 ===========
 
-A command line interface client for term.js / tty.js
+A command line interface client for [term.js](https://github.com/chjj/term.js/) / [tty.js](https://github.com/chjj/tty.js/)
 
 Install
 -------
