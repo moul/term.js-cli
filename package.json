@@ -2,7 +2,7 @@
   "name": "term.js-cli",
   "version": "0.1.0",
   "description": "A command line interface client for term.js.",
-  "main": "index.js",
+  "main": "termjs-cli.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
