@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "description": "A command line interface client for term.js.",
   "bin": {
-    "term.js-cli": "./termjs-cli.js"
+    "termjs-cli": "./bin/termjs-cli"
   },
   "main": "termjs-cli.js",
   "scripts": {
