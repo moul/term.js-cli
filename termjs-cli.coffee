@@ -3,10 +3,9 @@
 socketio = require 'socket.io-client'
 readline = require 'readline'
 
-auth_token = process.argv[2]
-server_id = process.argv[3]
+url = process.argv[2]
 
-socket = socketio.connect("https://tty.cloud.online.net?server_id=#{server_id}&type=serial&auth_token=#{auth_token}")
+socket = socketio.connect(url)
 
 pty = null
 rl = readline.createInterface
