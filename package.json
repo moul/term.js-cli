@@ -1,14 +1,22 @@
 {
   "name": "term.js-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A command line interface client for term.js.",
+  "bin": {
+    "term.js-cli": "./termjs-cli.js"
+  },
   "main": "termjs-cli.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node termjs-cli.js",
+    "prepublish": "./node_modules/.bin/coffee --bare --compile --output . *.coffee"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/moul/term.js-cli"
+  },
+  "devDependencies": {
+      "coffee-script": ""
   },
   "dependencies": {
     "socket.io-client": "0.9.11"
