@@ -3,25 +3,29 @@
 socketio = require 'socket.io-client'
 readline = require 'readline'
 
-url = process.argv[2]
 
-socket = socketio.connect(url)
+module.exports = (url, cb=null) ->
 
-pty = null
-rl = readline.createInterface
-  input: process.stdin
-  output: process.stdout
+  socket = socketio.connect(url)
 
-rl.on 'line', (line) ->
-  socket.emit 'data', pty, "#{line}\n"
+  pty = null
+  rl = readline.createInterface
+    input: process.stdin
+    output: process.stdout
 
-rl.on 'SIGINT', ->
-  rl.pause()
-  socket.disconnect()
+  rl.on 'line', (line) ->
+    socket.emit 'data', pty, "#{line}\n"
 
-socket.on 'connect', ->
-  socket.on 'data', (pty, data) ->
-    process.stdout.write data
+  rl.on 'SIGINT', ->
+    rl.pause()
+    socket.disconnect()
 
-  socket.emit 'create', 80, 25, (err, data) ->
-    pty = data.id
+  socket.on 'connect', ->
+    socket.on 'data', (pty, data) ->
+      process.stdout.write data
+
+    socket.emit 'create', 80, 25, (err, data) ->
+      pty = data.id
+
+    socket.on 'disconnect', ->
+      cb null if cb?
