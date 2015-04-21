@@ -16,10 +16,10 @@
     "url": "https://github.com/moul/term.js-cli"
   },
   "devDependencies": {
-      "coffee-script": ""
+    "coffee-script": ""
   },
   "dependencies": {
-    "socket.io-client": "0.9.11"
+    "socket.io-client": "^0.9.17"
   },
   "keywords": [
     "term.js",
