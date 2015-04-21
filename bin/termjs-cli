@@ -1,3 +1,11 @@
 #!/usr/bin/env node
 
-require('..')(process.argv[2]);
+var termJsCli = require('..');
+
+var serial = new termJsCli({url: process.argv[2]});
+
+serial.connect(function(err) {
+  if (err) {
+    console.error(err);
+  }
+});
