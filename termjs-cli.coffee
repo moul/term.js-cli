@@ -2,14 +2,13 @@
 
 socketio = require 'socket.io-client'
 readline = require 'readline'
-
+tty = require 'tty'
 
 class TermJSCli
 
   constructor: (@opts, cb=null) ->
     @socket = null
     @pty = null
-    @rl = null
     @stats =
       received: 0
       sent: 0
@@ -21,17 +20,18 @@ class TermJSCli
     @socket = socketio.connect(@opts.url)
 
     @pty = null
-    @rl = readline.createInterface
-      input: process.stdin
-      output: process.stdout
+    @stdin = process.stdin
+    @stdin.setRawMode true
+    @stdin.resume()
+    @stdin.setEncoding 'utf8'
 
-    @rl.on 'line', (line) =>
-      @stats.sent += 1
-      @socket.emit 'data', @pty, "#{line}\n"
-
-    @rl.on 'SIGINT', =>
-      @rl.pause()
-      @socket.disconnect()
+    @stdin.on 'data', (key) =>
+      if key.toString() == String.fromCharCode(0x11)
+        @stdin.pause()
+        @socket.disconnect()
+        process.exit()
+      else
+        @socket.emit 'data', @pty, key
 
     @socket.on 'connect', =>
       @socket.emit 'create', 80, 25, (err, data) =>
