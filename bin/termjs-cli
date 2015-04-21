@@ -5,6 +5,7 @@ var termJsCli = require('..');
 var serial = new termJsCli({url: process.argv[2]});
 
 serial.connect(function(err) {
+  console.log("You are connected, type 'Ctrl+q' to quit.");
   if (err) {
     console.error(err);
   }
