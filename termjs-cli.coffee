@@ -41,11 +41,21 @@ class TermJSCli
           @send '\n'
         @setupReceiver cb
 
+    @socket.on 'error', => console.log 'error'
+    @socket.on 'disconect', => console.log 'disconnect'
+    @socket.on 'reconect', => console.log 'reconnect'
+    @socket.on 'reconecting', => console.log 'reconnecting'
+    @socket.on 'reconect_failed', => console.log 'reconnect_failed'
+
 
   setupReceiver: (cb=null) =>
     cb null, @ if cb?
 
     @socket.on 'data', (@pty, data) =>
+      if data == 'Connection closed.\r\n'
+        console.log "<<[#{new Buffer(data).toString('hex')}]"
+        @socket.disconnect()
+        @socket.socket.connect()
       @stats.received += 1
       if @stats.received == 1 and @opts.sendNewLineOnConnect and data == '\r\n'
         return

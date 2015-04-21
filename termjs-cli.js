@@ -52,7 +52,7 @@ TermJSCli = (function() {
         }
       };
     })(this));
-    return this.socket.on('connect', (function(_this) {
+    this.socket.on('connect', (function(_this) {
       return function() {
         return _this.socket.emit('create', 80, 25, function(err, data) {
           _this.pty = data.id;
@@ -61,6 +61,31 @@ TermJSCli = (function() {
           }
           return _this.setupReceiver(cb);
         });
+      };
+    })(this));
+    this.socket.on('error', (function(_this) {
+      return function() {
+        return console.log('error');
+      };
+    })(this));
+    this.socket.on('disconect', (function(_this) {
+      return function() {
+        return console.log('disconnect');
+      };
+    })(this));
+    this.socket.on('reconect', (function(_this) {
+      return function() {
+        return console.log('reconnect');
+      };
+    })(this));
+    this.socket.on('reconecting', (function(_this) {
+      return function() {
+        return console.log('reconnecting');
+      };
+    })(this));
+    return this.socket.on('reconect_failed', (function(_this) {
+      return function() {
+        return console.log('reconnect_failed');
       };
     })(this));
   };
@@ -75,6 +100,11 @@ TermJSCli = (function() {
     return this.socket.on('data', (function(_this) {
       return function(pty, data) {
         _this.pty = pty;
+        if (data === 'Connection closed.\r\n') {
+          console.log("<<[" + (new Buffer(data).toString('hex')) + "]");
+          _this.socket.disconnect();
+          _this.socket.socket.connect();
+        }
         _this.stats.received += 1;
         if (_this.stats.received === 1 && _this.opts.sendNewLineOnConnect && data === '\r\n') {
           return;
