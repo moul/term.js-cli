@@ -1,6 +1,6 @@
 {
   "name": "term.js-cli",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A command line interface client for term.js.",
   "bin": {
     "termjs-cli": "./bin/termjs-cli"
