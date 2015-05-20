@@ -2,11 +2,24 @@
 
 var termJsCli = require('..');
 
+if (process.argv.length < 3 || process.argv[2] == '-h' || process.argv[2] == '--help') {
+    var progName = require('path').basename(process.argv[1]);
+    console.error('Usage: ' + progName + ' <url>');
+    console.error();
+    console.error('Examples:');
+    console.error('  ' + progName + ' http://foo:bar@localhost:8000/')
+    console.error('  ' + progName + ' https://tty.example.com/')
+    console.error('  ' + progName + ' http://domain.com/path/to/termjs/?arg1=42&arg2=42')
+    process.exit(1);
+}
+
 var serial = new termJsCli({url: process.argv[2]});
 
 serial.connect(function(err) {
-  console.log("You are connected, type 'Ctrl+q' to quit.");
   if (err) {
-    console.error(err);
+      console.error(err);
+      process.exit(1);
+  } else {
+      console.log("You are connected, type 'Ctrl+q' to quit.");
   }
 });
