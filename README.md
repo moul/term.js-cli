@@ -1,15 +1,19 @@
-term.js-cli
-===========
+# term.js-cli
 
 A command line interface client for [term.js](https://github.com/chjj/term.js/) / [tty.js](https://github.com/chjj/tty.js/)
 
-Install
--------
+## Install
 
     npm install -g term.js-cli
 
-Usage
------
+## Usage
 
     termjs-cli <term.js/tty.js url>
     termjs-cli https://example.com:8080
+    termjs-cli http://foo:bar@localhost:8000/
+    termjs-cli https://tty.example.com/
+    termjs-cli http://domain.com/path/to/termjs/?arg1=42&arg2=42
+
+## License
+
+MIT
