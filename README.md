@@ -1,5 +1,7 @@
 # term.js-cli
 
+[![GuardRails badge](https://badges.production.guardrails.io/moul/term.js-cli.svg)](https://www.guardrails.io)
+
 A command line interface client for [term.js](https://github.com/chjj/term.js/) / [tty.js](https://github.com/chjj/tty.js/)
 
 ## Install
